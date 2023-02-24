@@ -1,0 +1,313 @@
+---
+title: "Data Visualization Final"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    social: menu
+    source_code: embed
+    vertical_layout: scroll
+    
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+require(DT)
+require(readr)
+require(tidyverse)
+require(data.table)
+require(ggplot2)
+require(purrr)
+require(ggmap)
+require(graphics)
+require(flexdashboard)
+require(shiny)
+require(randomForest)
+require(tidyverse)
+require(mice)
+require(DT)
+require(dplyr)
+#devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
+require(scanpath)
+require(magrittr)
+require(scanpath)
+require(plotly)
+require(readr)
+require(imager)
+require(ggimage)
+
+aq <- read_csv("data/AQ_SubScales.csv")
+exp1 <- read_csv("data/datadryad_clear98_aq.csv")
+
+df <- list.files(path = "data/dataset_normalised_5mins/BROWSE",
+                 pattern = "*.csv",
+                 full.names = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+```
+
+
+Browsing on Screen 1
+=============
+
+The data set consists of raw gaze coordinates (x-y) of 24 participants while performing Browse, Read, Play, Search, Watch, Write, Debug, and Interpret activities during five minutes. The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. Below includes Browsing activity only. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities
+
+
+Row
+---------------------------------------------------------------
+
+### Eye Gaze Path
+
+```{r, echo=FALSE, fig.width=12, fig.height=8}
+diff <- tail(df$timestamp, 214127)
+diff <- append(diff, NA)
+df$diff <- diff
+
+df$duration <- df$diff - df$timestamp
+
+df <- df[df$duration >= 0,]
+
+df <- df[rowSums(is.na(df)) != ncol(df),]
+
+p <- plot_scanpaths(df, duration ~ x + y | participant, set)
+
+g <- p + ggplot2::theme(legend.position = "none")
+
+g
+```
+
+Row
+---------------------------------------------------------------
+
+<p style="text-align: center;">**References**</p>
+<br>
+Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
+
+
+
+
+Browsing on Screen 2
+=============
+
+Row {.tabset}
+---------------------------------------------------------------
+### Set A 
+
+``` {r, echo=FALSE, fig.width=12, fig.height=8}
+img.A <- png::readPNG("data/web.A.png")
+
+df.A <- df[df$set == 'A', ]
+
+p.A <- ggplot(df.A, aes(x = x, y = y, fill = duration)) +
+  ggpubr::background_image(img.A) +
+  geom_point(pch = 21) +
+  facet_wrap( ~ participant)
+
+p.A
+```
+
+### Set B
+
+``` {r, echo=FALSE, fig.width=12, fig.height=8}
+img.B <- png::readPNG("data/web.B.png")
+
+df.B <- df[df$set == 'B', ]
+
+p.B <- ggplot(df.B, aes(x = x, y = y, fill = duration)) +
+  ggpubr::background_image(img.B) +
+  geom_point(pch = 21) +
+  facet_wrap( ~ participant)
+
+p.B
+```
+
+### Set C
+
+``` {r, echo=FALSE, fig.width=12, fig.height=8}
+img.C <- png::readPNG("data/web.C.png")
+
+df.C <- df[df$set == 'C', ]
+
+p.C <- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
+  ggpubr::background_image(img.C) +
+  geom_point(pch = 21) +
+  facet_wrap( ~ participant)
+
+p.C
+```
+
+
+Row  
+---------------------------------------------------------------
+### Raw Data
+```{r, echo=FALSE}
+df <- df[, c(1, 2, 4, 5, 8)]
+
+datatable(
+  df,
+  rownames = FALSE,
+  colnames = c('Participant', 'Set', 'X coordinate', 'Y coordinate', 'Duration'),
+  filter = 'top',
+  option = list(
+    searching = FALSE,
+    pageLength = 10,
+    autoWidth = TRUE,
+    columnDefs = list(list(
+      targets = c(0), searchable = TRUE
+    ))
+  )
+)
+```
+
+
+Row
+---------------------------------------------------------------
+
+<p style="text-align: center;">**References**</p>
+<br>
+Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
+<br>
+Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx
+<br>
+Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
+
+
+Face Viewing Experiment 1
+=============
+Row
+---------------------------------------------------------------
+### Gaze
+
+```{r, eval=TRUE, include=FALSE}
+
+```
+
+
+
+
+Face Viewing Experiment 2
+=============
+
+Row {data-height=650}
+---------------------------------------------------------------
+### Raw Data
+
+```{r, eval=TRUE, include=FALSE}
+exp <- exp1[c(2, 6, 7, 11:15, 18, 19)]
+aq <- rename(aq, Code = code)
+exp <- left_join(exp, aq[-c(2)])
+exp <-
+  dplyr::rename(
+    exp,
+    'Subject' = 'Sub',
+    'Fixation Duration' = 'FixDur',
+    'Number of Fixation' = 'NumFix',
+    'PC_Upper' = 'PC_Up',
+    'PC_Lower' = 'PC_Low',
+    'AQ Total' = 'AQ',
+    'Social Skill' = 'social skill',
+    'Attention Switching' = 'attention switching',
+    'Attention to Detail' = 'attention to detail',
+    'Communication' = 'communication',
+    'Imagination' = 'imagination'
+  )
+
+
+
+# datatable(
+#   exp,
+#   rownames = FALSE,
+#   colnames = c(
+#     'Subject',
+#     'FixDur',
+#     'NumFix',
+#     'PC_Eyes',
+#     'PC_Mouth',
+#     'PC_Off',
+#     'AQ',
+#     'Social Skill',
+#     'Attention Switching',
+#     'Attention to Detail',
+#     'Communication',
+#     'Imagination'
+#   ),
+#   filter = 'top',
+#   option = list(
+#     searching = FALSE,
+#     pageLength = 5,
+#     autoWidth = TRUE,
+#     columnDefs = list(list(
+#       targets = c(0), searchable = FALSE
+#     ))
+#   )
+# )
+
+```
+
+```{r, eval=TRUE, echo=FALSE, fig.height=8}
+ui_bar_before <- shinyUI(fluidPage(sidebarLayout(
+  sidebarPanel(
+    width = 2,
+    h3("Filter"),
+    sliderInput(
+      "PC_Eyes",
+      label = "Eyes",
+      min = 0,
+      max = 1,
+      value = c(0, 1)
+    ),
+    sliderInput(
+      "PC_Off",
+      label = "Off Face",
+      min = 0,
+      max = 1,
+      value = c(0, 1)
+    ),
+    selectInput("Subject", "Subject", choices = c(1:70))
+  ),
+  mainPanel(h3("Table View"),
+            DTOutput("table_raw"))
+)))
+
+server <- shinyServer(function(input, output) {
+  output$table_raw <- renderDT({
+    exp  %>%
+      filter(
+        PC_Eyes >= input$PC_Eyes[1] & PC_Eyes <= input$PC_Eyes[2],
+        PC_Off >= input$PC_Off[1] & PC_Off <= input$PC_Off[2],
+        Subject == input$Subject
+      )
+  }, options = list(
+    searching = FALSE,
+    pageLength = 5,
+    autoWidth = TRUE,
+    columnDefs = list(list(
+      targets = c(0), searchable = FALSE
+    ))
+  ),
+  rownames = FALSE)
+  output$table_std <- renderDT({
+    exp()
+  }, options = list(
+    searching = FALSE,
+    pageLength = 5,
+    autoWidth = TRUE,
+    columnDefs = list(list(
+      targets = c(0), searchable = FALSE
+    ))
+  ),
+  
+  rownames = FALSE)
+})
+```
+
+
+```{r, echo=FALSE}
+shinyApp(ui = ui_bar_before, server = server)
+```
+
+<p style="text-align: center;">**References**</p>
+<br>
+Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
