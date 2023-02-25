@@ -6,9 +6,19 @@ output:
     social: menu
     source_code: embed
     vertical_layout: scroll
+    theme:
+      bootswatch: journal
     
 runtime: shiny
 ---
+
+<style>
+body {
+margin-left: 50px; 
+margin-right: 50px;
+padding-top: 100px
+}
+</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
@@ -49,18 +59,44 @@ df <- list.files(path = "data/dataset_normalised_5mins/BROWSE",
 ```
 
 
-Browsing on Screen 1
+Home
 =============
 
-The data set consists of raw gaze coordinates (x-y) of 24 participants while performing Browse, Read, Play, Search, Watch, Write, Debug, and Interpret activities during five minutes. The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. Below includes Browsing activity only. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities
+### Hello!
 
+Welcome to my final project of EDLD 652: Data Visualization class. <br>
+
+My name is Seulbi Lee, and I'm a second year PhD student in Special Education program. One of my projects that I'm planning is related to eye tracking research to better understand struggling readers' comprehension, so I wanted to include two eye tracking datasets for this project. <br>
+
+
+The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) of 24 participants while performing Browse, Read, Play, Search, Watch, Write, Debug, and Interpret activities during five minutes.The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. In my project, only Browsing activity is included. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities <br>
+
+> Tab 1: The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing. 
+
+> Tab 2: The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). 
+
+The second dataset ("Face Viewing Experiment") is ... Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
+
+
+
+### These things will be revised for the final product: 
+> 1) 'References' on tabs 1 and 2 should be center aligned;
+> 2) The color of geom_point on tab 2 will be changed so that they are more noticeble; and
+> 3) On tab 3, there will be added another visualization to show the relationships between participants' AQ scores and the time fixated on face during the experiment.
+
+If there are additional points that I would need to revise, please let me know. Thank you for reviewing my draft! 
+
+
+
+Browsing on Screen 1
+=============
 
 Row
 ---------------------------------------------------------------
 
 ### Eye Gaze Path
 
-```{r, echo=FALSE, fig.width=12, fig.height=8}
+```{r, echo=FALSE, fig.height=10, fig.width=12}
 diff <- tail(df$timestamp, 214127)
 diff <- append(diff, NA)
 df$diff <- diff
@@ -95,7 +131,7 @@ Row {.tabset}
 ---------------------------------------------------------------
 ### Set A 
 
-``` {r, echo=FALSE, fig.width=12, fig.height=8}
+``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.A <- png::readPNG("data/web.A.png")
 
 df.A <- df[df$set == 'A', ]
@@ -110,7 +146,7 @@ p.A
 
 ### Set B
 
-``` {r, echo=FALSE, fig.width=12, fig.height=8}
+``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.B <- png::readPNG("data/web.B.png")
 
 df.B <- df[df$set == 'B', ]
@@ -125,7 +161,7 @@ p.B
 
 ### Set C
 
-``` {r, echo=FALSE, fig.width=12, fig.height=8}
+``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.C <- png::readPNG("data/web.C.png")
 
 df.C <- df[df$set == 'C', ]
@@ -136,29 +172,6 @@ p.C <- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
   facet_wrap( ~ participant)
 
 p.C
-```
-
-
-Row  
----------------------------------------------------------------
-### Raw Data
-```{r, echo=FALSE}
-df <- df[, c(1, 2, 4, 5, 8)]
-
-datatable(
-  df,
-  rownames = FALSE,
-  colnames = c('Participant', 'Set', 'X coordinate', 'Y coordinate', 'Duration'),
-  filter = 'top',
-  option = list(
-    searching = FALSE,
-    pageLength = 10,
-    autoWidth = TRUE,
-    columnDefs = list(list(
-      targets = c(0), searchable = TRUE
-    ))
-  )
-)
 ```
 
 
@@ -190,11 +203,12 @@ Row
 Face Viewing Experiment 2
 =============
 
-Row {data-height=650}
----------------------------------------------------------------
-### Raw Data
 
-```{r, eval=TRUE, include=FALSE}
+Column
+---------------------------------------------------------------
+### Table
+
+``` {r, echo=FALSE}
 exp <- exp1[c(2, 6, 7, 11:15, 18, 19)]
 aq <- rename(aq, Code = code)
 exp <- left_join(exp, aq[-c(2)])
@@ -214,43 +228,11 @@ exp <-
     'Imagination' = 'imagination'
   )
 
-
-
-# datatable(
-#   exp,
-#   rownames = FALSE,
-#   colnames = c(
-#     'Subject',
-#     'FixDur',
-#     'NumFix',
-#     'PC_Eyes',
-#     'PC_Mouth',
-#     'PC_Off',
-#     'AQ',
-#     'Social Skill',
-#     'Attention Switching',
-#     'Attention to Detail',
-#     'Communication',
-#     'Imagination'
-#   ),
-#   filter = 'top',
-#   option = list(
-#     searching = FALSE,
-#     pageLength = 5,
-#     autoWidth = TRUE,
-#     columnDefs = list(list(
-#       targets = c(0), searchable = FALSE
-#     ))
-#   )
-# )
-
-```
-
-```{r, eval=TRUE, echo=FALSE, fig.height=8}
-ui_bar_before <- shinyUI(fluidPage(sidebarLayout(
+ui_bar2 <- shinyUI(fluidPage(sidebarLayout(
   sidebarPanel(
     width = 2,
     h3("Filter"),
+    selectInput("Subject", "Subject", choices = c(1:70)),
     sliderInput(
       "PC_Eyes",
       label = "Eyes",
@@ -264,20 +246,19 @@ ui_bar_before <- shinyUI(fluidPage(sidebarLayout(
       min = 0,
       max = 1,
       value = c(0, 1)
+    )
     ),
-    selectInput("Subject", "Subject", choices = c(1:70))
-  ),
   mainPanel(h3("Table View"),
-            DTOutput("table_raw"))
+            DTOutput("table_raw2"))
 )))
 
-server <- shinyServer(function(input, output) {
-  output$table_raw <- renderDT({
+server2 <- shinyServer(function(input, output) {
+  output$table_raw2 <- renderDT({
     exp  %>%
       filter(
-        PC_Eyes >= input$PC_Eyes[1] & PC_Eyes <= input$PC_Eyes[2],
-        PC_Off >= input$PC_Off[1] & PC_Off <= input$PC_Off[2],
-        Subject == input$Subject
+       Subject == input$Subject,
+       PC_Eyes >= input$PC_Eyes[1] & PC_Eyes <= input$PC_Eyes[2],
+      PC_Off >= input$PC_Off[1] & PC_Off <= input$PC_Off[2]
       )
   }, options = list(
     searching = FALSE,
@@ -288,7 +269,7 @@ server <- shinyServer(function(input, output) {
     ))
   ),
   rownames = FALSE)
-  output$table_std <- renderDT({
+  output$table_std2 <- renderDT({
     exp()
   }, options = list(
     searching = FALSE,
@@ -298,14 +279,10 @@ server <- shinyServer(function(input, output) {
       targets = c(0), searchable = FALSE
     ))
   ),
-  
   rownames = FALSE)
 })
-```
 
-
-```{r, echo=FALSE}
-shinyApp(ui = ui_bar_before, server = server)
+shinyApp(ui = ui_bar2, server = server2)
 ```
 
 <p style="text-align: center;">**References**</p>
