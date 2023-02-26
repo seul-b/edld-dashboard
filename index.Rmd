@@ -1,5 +1,5 @@
 ---
-title: "Data Visualization Final"
+title: "Eye Tracking Dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -10,6 +10,7 @@ output:
       bootswatch: journal
     
 runtime: shiny
+knit: rmarkdown::render
 ---
 
 <style>
@@ -20,7 +21,7 @@ padding-top: 100px
 }
 </style>
 
-```{r setup, include=FALSE}
+```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
