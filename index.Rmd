@@ -8,18 +8,10 @@ output:
     vertical_layout: scroll
     theme:
       bootswatch: journal
-    
-runtime: shiny
-knit: rmarkdown::render
+    runtime: shiny
+    knit: rmarkdown::render
 ---
 
-<style>
-body {
-margin-left: 50px; 
-margin-right: 50px;
-padding-top: 100px
-}
-</style>
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
@@ -33,24 +25,17 @@ require(ggplot2)
 require(purrr)
 require(ggmap)
 require(graphics)
+require(scanpath)
 require(flexdashboard)
-require(shiny)
-require(randomForest)
 require(tidyverse)
 require(mice)
 require(DT)
 require(dplyr)
-#devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
-require(scanpath)
-require(magrittr)
-require(scanpath)
-require(plotly)
 require(readr)
-require(imager)
-require(ggimage)
+require(png)
 
 aq <- read_csv("data/AQ_SubScales.csv")
-exp1 <- read_csv("data/datadryad_clear98_aq.csv")
+exp <- read_csv("data/datadryad_clear98_aq.csv")
 
 df <- list.files(path = "data/dataset_normalised_5mins/BROWSE",
                  pattern = "*.csv",
@@ -70,20 +55,18 @@ Welcome to my final project of EDLD 652: Data Visualization class. <br>
 My name is Seulbi Lee, and I'm a second year PhD student in Special Education program. One of my projects that I'm planning is related to eye tracking research to better understand struggling readers' comprehension, so I wanted to include two eye tracking datasets for this project. <br>
 
 
-The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) of 24 participants while performing Browse, Read, Play, Search, Watch, Write, Debug, and Interpret activities during five minutes.The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. In my project, only Browsing activity is included. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities <br>
+The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) of 24 participants while performing online activities during five minutes. The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. In my project, only Browsing activity is included. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities <br>
 
-> Tab 1: The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing. 
 
-> Tab 2: The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). 
-
-The second dataset ("Face Viewing Experiment") is ... Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
-
+The second dataset ("Face Viewing Experiment") is from a published study titled "A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants". The eye movements were recorded using Eye Link 1000 Plus and analyzed with SR Research’s Eyelink software. Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
 
 
 ### These things will be revised for the final product: 
 > 1) 'References' on tabs 1 and 2 should be center aligned;
-> 2) The color of geom_point on tab 2 will be changed so that they are more noticeble; and
-> 3) On tab 3, there will be added another visualization to show the relationships between participants' AQ scores and the time fixated on face during the experiment.
+> 2) The color of geom_point on tab 2 will be changed so that they are more noticeble; 
+> 3) The bug that last tab appears on the home tab when opening will be managed; 
+> 4) Indentations will be added for descriptions; and
+> 5) There will be added another visualization on tab 3.
 
 If there are additional points that I would need to revise, please let me know. Thank you for reviewing my draft! 
 
@@ -92,9 +75,11 @@ If there are additional points that I would need to revise, please let me know. 
 Browsing on Screen 1
 =============
 
+The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing. 
+
+
 Row
 ---------------------------------------------------------------
-
 ### Eye Gaze Path
 
 ```{r, echo=FALSE, fig.height=10, fig.width=12}
@@ -117,7 +102,6 @@ g
 
 Row
 ---------------------------------------------------------------
-
 <p style="text-align: center;">**References**</p>
 <br>
 Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
@@ -127,6 +111,10 @@ Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze
 
 Browsing on Screen 2
 =============
+
+The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). <br>
+
+
 
 Row {.tabset}
 ---------------------------------------------------------------
@@ -178,7 +166,6 @@ p.C
 
 Row
 ---------------------------------------------------------------
-
 <p style="text-align: center;">**References**</p>
 <br>
 Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
@@ -188,104 +175,67 @@ Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/
 Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
 
 
-Face Viewing Experiment 1
+Face Viewing Experiment 1 
 =============
 Row
 ---------------------------------------------------------------
-### Gaze
+### UNDER CONSTRUCTION
 
 ```{r, eval=TRUE, include=FALSE}
 
-```
 
+
+```
 
 
 
 Face Viewing Experiment 2
 =============
 
+This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
 
-Column
+[Consideration 1: include the total score or not? <br>
+Consideration 2: differentiate and include plots for the time spent on eyes and mouth or not?]
+
+Column 
 ---------------------------------------------------------------
+
 ### Table
 
-``` {r, echo=FALSE}
-exp <- exp1[c(2, 6, 7, 11:15, 18, 19)]
+```{r, echo=FALSE}
+
+aq <- read_csv("data/AQ_SubScales.csv")
+exp <- read_csv("data/datadryad_clear98_aq.csv")
+
+exp.m <- exp[c(13, 18)]
+exp.m <- aggregate(exp.m$PC_Off, list(exp.m$Code), FUN=mean)
+exp.m <- exp.m %>% 
+  rename('Code' = 'Group.1',
+         'Off' = 'x')
+exp.m <- unique(exp.m)
+
 aq <- rename(aq, Code = code)
-exp <- left_join(exp, aq[-c(2)])
-exp <-
-  dplyr::rename(
-    exp,
-    'Subject' = 'Sub',
-    'Fixation Duration' = 'FixDur',
-    'Number of Fixation' = 'NumFix',
-    'PC_Upper' = 'PC_Up',
-    'PC_Lower' = 'PC_Low',
-    'AQ Total' = 'AQ',
-    'Social Skill' = 'social skill',
-    'Attention Switching' = 'attention switching',
-    'Attention to Detail' = 'attention to detail',
-    'Communication' = 'communication',
-    'Imagination' = 'imagination'
-  )
+exp <- left_join(exp, aq, by="Code")
+exp.aq <- exp[c(18, 21:26)]
+exp.aq <- unique(exp.aq)
 
-ui_bar2 <- shinyUI(fluidPage(sidebarLayout(
-  sidebarPanel(
-    width = 2,
-    h3("Filter"),
-    selectInput("Subject", "Subject", choices = c(1:70)),
-    sliderInput(
-      "PC_Eyes",
-      label = "Eyes",
-      min = 0,
-      max = 1,
-      value = c(0, 1)
-    ),
-    sliderInput(
-      "PC_Off",
-      label = "Off Face",
-      min = 0,
-      max = 1,
-      value = c(0, 1)
-    )
-    ),
-  mainPanel(h3("Table View"),
-            DTOutput("table_raw2"))
-)))
+exp.c <-left_join(exp.m, exp.aq, by=c("Code"))
+exp.c <- exp.c %>% 
+  pivot_longer(c(4:8),
+               names_to = "scale",
+               values_to = "score")
 
-server2 <- shinyServer(function(input, output) {
-  output$table_raw2 <- renderDT({
-    exp  %>%
-      filter(
-       Subject == input$Subject,
-       PC_Eyes >= input$PC_Eyes[1] & PC_Eyes <= input$PC_Eyes[2],
-      PC_Off >= input$PC_Off[1] & PC_Off <= input$PC_Off[2]
-      )
-  }, options = list(
-    searching = FALSE,
-    pageLength = 5,
-    autoWidth = TRUE,
-    columnDefs = list(list(
-      targets = c(0), searchable = FALSE
-    ))
-  ),
-  rownames = FALSE)
-  output$table_std2 <- renderDT({
-    exp()
-  }, options = list(
-    searching = FALSE,
-    pageLength = 5,
-    autoWidth = TRUE,
-    columnDefs = list(list(
-      targets = c(0), searchable = FALSE
-    ))
-  ),
-  rownames = FALSE)
-})
+ggplot(exp.c, aes(Off, score, colour = scale)) +
+  geom_point(alpha = .5, shape = 20) +
+  xlab('Time Gazed Out Of Face') +
+  ylab('AQ Score') +
+  geom_smooth(method=lm, se = FALSE)+
+  scale_y_continuous(breaks=c(0,2,4,6,8,10))
 
-shinyApp(ui = ui_bar2, server = server2)
 ```
 
+Row
+---------------------------------------------------------------
 <p style="text-align: center;">**References**</p>
 <br>
 Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
