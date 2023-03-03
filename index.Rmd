@@ -226,7 +226,7 @@ Column
 
 ### Table
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=18}
 # OFF
 exp.f <- exp[c(13, 18)]
 exp.f <- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
