@@ -166,10 +166,8 @@ window.FlexDashboardComponents = [];
 </div><!--/.navbar-->
 
 <img class="mobile-figure" data-mobile-figure-id=fig1 src="index_files/figure-html/unnamed-chunk-1-1.mb.png" />
-<img class="mobile-figure" data-mobile-figure-id=fig2 src="index_files/figure-html/unnamed-chunk-2-1.mb.png" />
-<img class="mobile-figure" data-mobile-figure-id=fig3 src="index_files/figure-html/unnamed-chunk-3-1.mb.png" />
-<img class="mobile-figure" data-mobile-figure-id=fig4 src="index_files/figure-html/unnamed-chunk-4-1.mb.png" />
-<img class="mobile-figure" data-mobile-figure-id=fig5 src="index_files/figure-html/unnamed-chunk-6-1.mb.png" />
+<img class="mobile-figure" data-mobile-figure-id=fig2 src="index_files/figure-html/unnamed-chunk-5-1.mb.png" />
+<img class="mobile-figure" data-mobile-figure-id=fig3 src="index_files/figure-html/unnamed-chunk-6-1.mb.png" />
 <script type="text/javascript">
 
 
@@ -1945,21 +1943,21 @@ etc.). <br></p>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" width="1152" data-figure-id=fig2 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 <div id="set-b" class="section level3">
 <h3>Set B</h3>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="1152" data-figure-id=fig3 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 <div id="set-c" class="section level3">
 <h3>Set C</h3>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="1152" data-figure-id=fig4 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 </div>
 <div id="row-3" class="section level2">
@@ -2002,7 +2000,7 @@ or not?]</p>
 <div class="knitr-options" data-fig-width="576" data-fig-height="460">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig5 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig3 /></p>
 </div>
 </div>
 <div id="row-5" class="section level2">
@@ -2070,6 +2068,10 @@ require(DT)
 require(dplyr)
 require(readr)
 require(png)
+require(gganimate)
+require(jpeg)
+require(ggpubr)
+require(grid)
 
 aq &lt;- read_csv("data/AQ_SubScales.csv")
 exp &lt;- read_csv("data/datadryad_clear98_aq.csv")
@@ -2160,14 +2162,17 @@ Row {.tabset}
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.A &lt;- png::readPNG("data/web.A.png")
 
-df.A &lt;- df[df$set == 'A', ]
+df.A &lt;- df[df$set == 'A', ] 
+df.A &lt;- filter(df.A, timestamp&gt;0)
 
 p.A &lt;- ggplot(df.A, aes(x = x, y = y, fill = duration)) +
   ggpubr::background_image(img.A) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.A
+animate(p.A)
 ```
 
 ### Set B
@@ -2175,14 +2180,17 @@ p.A
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.B &lt;- png::readPNG("data/web.B.png")
 
-df.B &lt;- df[df$set == 'B', ]
+df.B &lt;- df[df$set == 'B', ] 
+df.B &lt;- filter(df.B, timestamp&gt;0)
 
 p.B &lt;- ggplot(df.B, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.B) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  ggpubr::background_image(img.A) +
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.B
+animate(p.B)
 ```
 
 ### Set C
@@ -2190,14 +2198,17 @@ p.B
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.C &lt;- png::readPNG("data/web.C.png")
 
-df.C &lt;- df[df$set == 'C', ]
+df.C &lt;- df[df$set == 'C', ] 
+df.C &lt;- filter(df.C, timestamp&gt;0)
 
 p.C &lt;- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.C) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  ggpubr::background_image(img.A) +
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.C
+animate(p.C)
 ```
 
 
@@ -2220,6 +2231,17 @@ Row
 
 ```{r, eval=TRUE, include=FALSE}
 
+aq &lt;- read_csv("data/AQ_SubScales.csv")
+exp &lt;- read_csv("data/datadryad_clear98_aq.csv")
+
+image &lt;- readJPEG("data/image.jpg")
+
+exp.1 &lt;- exp[exp$Sub == '1', ] 
+
+ggplot(exp.1, aes(x = x, y = y, fill = PC_Eyes)) +
+  ggpubr::background_image(image) +
+  geom_point(pch = 21, alpha = 0.8) +
+  scale_fill_gradientn(colours = rainbow(5)) 
 
 
 ```
@@ -2240,34 +2262,82 @@ Column
 ### Table
 
 ```{r, echo=FALSE}
-
-aq &lt;- read_csv("data/AQ_SubScales.csv")
-exp &lt;- read_csv("data/datadryad_clear98_aq.csv")
-
-exp.m &lt;- exp[c(13, 18)]
-exp.m &lt;- aggregate(exp.m$PC_Off, list(exp.m$Code), FUN=mean)
-exp.m &lt;- exp.m %&gt;% 
+# OFF
+exp.f &lt;- exp[c(13, 18)]
+exp.f &lt;- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
+exp.f &lt;- exp.f %&gt;% 
   rename('Code' = 'Group.1',
          'Off' = 'x')
-exp.m &lt;- unique(exp.m)
+exp.f &lt;- unique(exp.f)
 
 aq &lt;- rename(aq, Code = code)
-exp &lt;- left_join(exp, aq, by="Code")
-exp.aq &lt;- exp[c(18, 21:26)]
-exp.aq &lt;- unique(exp.aq)
-
-exp.c &lt;-left_join(exp.m, exp.aq, by=c("Code"))
-exp.c &lt;- exp.c %&gt;% 
+exp.f &lt;- left_join(exp.f, aq, by="Code")
+exp.f &lt;- exp.f %&gt;% 
   pivot_longer(c(4:8),
-               names_to = "scale",
+               names_to = "Subscale",
                values_to = "score")
 
-ggplot(exp.c, aes(Off, score, colour = scale)) +
+plot.f &lt;- ggplot(exp.f, aes(Off, score, colour = Subscale)) +
   geom_point(alpha = .5, shape = 20) +
   xlab('Time Gazed Out Of Face') +
   ylab('AQ Score') +
   geom_smooth(method=lm, se = FALSE)+
-  scale_y_continuous(breaks=c(0,2,4,6,8,10))
+  scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  theme(axis.title.y = element_blank())
+
+# EYES
+exp.e &lt;- exp[c(11, 18)]
+exp.e &lt;- aggregate(exp.e$PC_Eyes, list(exp.e$Code), FUN=mean)
+exp.e &lt;- exp.e %&gt;% 
+  rename('Code' = 'Group.1',
+         'Eyes' = 'x')
+exp.e &lt;- unique(exp.e)
+
+exp.e &lt;- left_join(exp.e, aq, by="Code")
+exp.e &lt;- exp.e %&gt;% 
+  pivot_longer(c(4:8),
+               names_to = "Subscale",
+               values_to = "score")
+
+plot.e &lt;- ggplot(exp.e, aes(Eyes, score, colour = Subscale)) +
+  geom_point(alpha = .5, shape = 20) +
+  xlab('Time Gazed On Eyes') +
+  ylab('AQ Score') +
+  geom_smooth(method=lm, se = FALSE) +
+  scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  theme(axis.title.y = element_blank())
+
+# MOUTH
+exp.m &lt;- exp[c(12, 18)]
+exp.m &lt;- aggregate(exp.m$PC_Mouth, list(exp.m$Code), FUN=mean)
+exp.m &lt;- exp.m %&gt;% 
+  rename('Code' = 'Group.1',
+         'Mouth' = 'x')
+exp.m &lt;- unique(exp.m)
+
+exp.m &lt;-left_join(exp.m, aq, by=c("Code"))
+exp.m &lt;- exp.m %&gt;% 
+  pivot_longer(c(4:8),
+               names_to = "Subscale",
+               values_to = "score")
+
+plot.m &lt;- ggplot(exp.m, aes(Mouth, score, colour = Subscale)) +
+  geom_point(alpha = .5, shape = 20) +
+  xlab('Time Gazed On Mouth') +
+  ylab('AQ Score') +
+  geom_smooth(method=lm, se = FALSE)+
+  scale_y_continuous(breaks=c(0,2,4,6,8,10))  +
+  theme(axis.title.y = element_blank())
+
+
+plots &lt;- ggarrange(plot.e, plot.m, plot.f,
+          ncol=1, common.legend = TRUE, legend="right")  +
+    scale_y_continuous(breaks=c(0,2,4,6,8,10)) 
+  
+
+annotate_figure(plots, top = text_grob("Time Gazed On or Off Face",
+               color = "black", face = "bold", size = 14),
+               left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
 

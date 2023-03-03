@@ -33,6 +33,10 @@ require(DT)
 require(dplyr)
 require(readr)
 require(png)
+require(gganimate)
+require(jpeg)
+require(ggpubr)
+require(grid)
 
 aq <- read_csv("data/AQ_SubScales.csv")
 exp <- read_csv("data/datadryad_clear98_aq.csv")
@@ -123,14 +127,17 @@ Row {.tabset}
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.A <- png::readPNG("data/web.A.png")
 
-df.A <- df[df$set == 'A', ]
+df.A <- df[df$set == 'A', ] 
+df.A <- filter(df.A, timestamp>0)
 
 p.A <- ggplot(df.A, aes(x = x, y = y, fill = duration)) +
   ggpubr::background_image(img.A) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.A
+animate(p.A)
 ```
 
 ### Set B
@@ -138,14 +145,17 @@ p.A
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.B <- png::readPNG("data/web.B.png")
 
-df.B <- df[df$set == 'B', ]
+df.B <- df[df$set == 'B', ] 
+df.B <- filter(df.B, timestamp>0)
 
 p.B <- ggplot(df.B, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.B) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  ggpubr::background_image(img.A) +
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.B
+animate(p.B)
 ```
 
 ### Set C
@@ -153,14 +163,17 @@ p.B
 ``` {r, echo=FALSE, fig.height=10, fig.width=12}
 img.C <- png::readPNG("data/web.C.png")
 
-df.C <- df[df$set == 'C', ]
+df.C <- df[df$set == 'C', ] 
+df.C <- filter(df.C, timestamp>0)
 
 p.C <- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.C) +
-  geom_point(pch = 21) +
-  facet_wrap( ~ participant)
+  ggpubr::background_image(img.A) +
+  geom_point(pch = 21, alpha = 0.8) +
+  facet_wrap( ~ participant) +
+  scale_fill_gradientn(colours = rainbow(5)) +
+  transition_reveal(y)
 
-p.C
+animate(p.C)
 ```
 
 
@@ -183,6 +196,17 @@ Row
 
 ```{r, eval=TRUE, include=FALSE}
 
+aq <- read_csv("data/AQ_SubScales.csv")
+exp <- read_csv("data/datadryad_clear98_aq.csv")
+
+image <- readJPEG("data/image.jpg")
+
+exp.1 <- exp[exp$Sub == '1', ] 
+
+ggplot(exp.1, aes(x = x, y = y, fill = PC_Eyes)) +
+  ggpubr::background_image(image) +
+  geom_point(pch = 21, alpha = 0.8) +
+  scale_fill_gradientn(colours = rainbow(5)) 
 
 
 ```
@@ -203,34 +227,82 @@ Column
 ### Table
 
 ```{r, echo=FALSE}
-
-aq <- read_csv("data/AQ_SubScales.csv")
-exp <- read_csv("data/datadryad_clear98_aq.csv")
-
-exp.m <- exp[c(13, 18)]
-exp.m <- aggregate(exp.m$PC_Off, list(exp.m$Code), FUN=mean)
-exp.m <- exp.m %>% 
+# OFF
+exp.f <- exp[c(13, 18)]
+exp.f <- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
+exp.f <- exp.f %>% 
   rename('Code' = 'Group.1',
          'Off' = 'x')
-exp.m <- unique(exp.m)
+exp.f <- unique(exp.f)
 
 aq <- rename(aq, Code = code)
-exp <- left_join(exp, aq, by="Code")
-exp.aq <- exp[c(18, 21:26)]
-exp.aq <- unique(exp.aq)
-
-exp.c <-left_join(exp.m, exp.aq, by=c("Code"))
-exp.c <- exp.c %>% 
+exp.f <- left_join(exp.f, aq, by="Code")
+exp.f <- exp.f %>% 
   pivot_longer(c(4:8),
-               names_to = "scale",
+               names_to = "Subscale",
                values_to = "score")
 
-ggplot(exp.c, aes(Off, score, colour = scale)) +
+plot.f <- ggplot(exp.f, aes(Off, score, colour = Subscale)) +
   geom_point(alpha = .5, shape = 20) +
   xlab('Time Gazed Out Of Face') +
   ylab('AQ Score') +
   geom_smooth(method=lm, se = FALSE)+
-  scale_y_continuous(breaks=c(0,2,4,6,8,10))
+  scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  theme(axis.title.y = element_blank())
+
+# EYES
+exp.e <- exp[c(11, 18)]
+exp.e <- aggregate(exp.e$PC_Eyes, list(exp.e$Code), FUN=mean)
+exp.e <- exp.e %>% 
+  rename('Code' = 'Group.1',
+         'Eyes' = 'x')
+exp.e <- unique(exp.e)
+
+exp.e <- left_join(exp.e, aq, by="Code")
+exp.e <- exp.e %>% 
+  pivot_longer(c(4:8),
+               names_to = "Subscale",
+               values_to = "score")
+
+plot.e <- ggplot(exp.e, aes(Eyes, score, colour = Subscale)) +
+  geom_point(alpha = .5, shape = 20) +
+  xlab('Time Gazed On Eyes') +
+  ylab('AQ Score') +
+  geom_smooth(method=lm, se = FALSE) +
+  scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  theme(axis.title.y = element_blank())
+
+# MOUTH
+exp.m <- exp[c(12, 18)]
+exp.m <- aggregate(exp.m$PC_Mouth, list(exp.m$Code), FUN=mean)
+exp.m <- exp.m %>% 
+  rename('Code' = 'Group.1',
+         'Mouth' = 'x')
+exp.m <- unique(exp.m)
+
+exp.m <-left_join(exp.m, aq, by=c("Code"))
+exp.m <- exp.m %>% 
+  pivot_longer(c(4:8),
+               names_to = "Subscale",
+               values_to = "score")
+
+plot.m <- ggplot(exp.m, aes(Mouth, score, colour = Subscale)) +
+  geom_point(alpha = .5, shape = 20) +
+  xlab('Time Gazed On Mouth') +
+  ylab('AQ Score') +
+  geom_smooth(method=lm, se = FALSE)+
+  scale_y_continuous(breaks=c(0,2,4,6,8,10))  +
+  theme(axis.title.y = element_blank())
+
+
+plots <- ggarrange(plot.e, plot.m, plot.f,
+          ncol=1, common.legend = TRUE, legend="right")  +
+    scale_y_continuous(breaks=c(0,2,4,6,8,10)) 
+  
+
+annotate_figure(plots, top = text_grob("Time Gazed On or Off Face",
+               color = "black", face = "bold", size = 14),
+               left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
 
