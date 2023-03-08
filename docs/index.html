@@ -1989,9 +1989,9 @@ was talking. <br></p>
 or not?]</p>
 <div id="column" class="section level2">
 <h2>Column</h2>
-<div id="table" class="section level3">
-<h3>Table</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="2400">
+<div id="time-gazed-on-or-off-face" class="section level3">
+<h3>Time Gazed On or Off Face</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="1728">
 
 </div>
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig3 style="display: block; margin: auto;" /></p>
@@ -2257,9 +2257,9 @@ Consideration 2: differentiate and include plots for the time spent on eyes and 
 Column 
 ---------------------------------------------------------------
 
-### Table
+### Time Gazed On or Off Face
 
-```{r, echo=FALSE, fig.height=25}
+```{r, echo=FALSE, fig.height=18}
 # OFF
 exp.f &lt;- exp[c(13, 18)]
 exp.f &lt;- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
@@ -2333,9 +2333,7 @@ plots &lt;- ggarrange(plot.e, plot.m, plot.f,
     scale_y_continuous(breaks=c(0,2,4,6,8,10)) 
   
 
-annotate_figure(plots, top = text_grob("Time Gazed On or Off Face",
-               color = "black", face = "bold", size = 14),
-               left = text_grob("AQ Score", rot = 90, vjust = 1))
+annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
 

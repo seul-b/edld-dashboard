@@ -228,9 +228,9 @@ Consideration 2: differentiate and include plots for the time spent on eyes and 
 Column 
 ---------------------------------------------------------------
 
-### Table
+### Time Gazed On or Off Face
 
-```{r, echo=FALSE, fig.height=25}
+```{r, echo=FALSE, fig.height=18}
 # OFF
 exp.f <- exp[c(13, 18)]
 exp.f <- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
@@ -304,9 +304,7 @@ plots <- ggarrange(plot.e, plot.m, plot.f,
     scale_y_continuous(breaks=c(0,2,4,6,8,10)) 
   
 
-annotate_figure(plots, top = text_grob("Time Gazed On or Off Face",
-               color = "black", face = "bold", size = 14),
-               left = text_grob("AQ Score", rot = 90, vjust = 1))
+annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
 
