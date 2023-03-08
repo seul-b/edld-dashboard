@@ -1916,14 +1916,11 @@ sets (screens) they were browsing.</p>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="1152" data-figure-id=fig1 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="1152" data-figure-id=fig1 style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="row-1" class="section level2">
 <h2>Row</h2>
-<p style="text-align: center;">
-<strong>References</strong>
-</p>
 <p><br> Srivastava, N., Newn, J., &amp; Velloso, E. (2018). Combining
 Low and Mid-Level Gaze Features for Desktop Activity Recognition.
 Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous
@@ -1943,21 +1940,18 @@ etc.). <br></p>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 <div id="set-b" class="section level3">
 <h3>Set B</h3>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 <div id="set-c" class="section level3">
 <h3>Set C</h3>
 <div class="knitr-options" data-fig-width="1152" data-fig-height="960">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" width="1152" data-figure-id=fig2 /></p>
 </div>
 </div>
 <div id="row-3" class="section level2">
@@ -1997,10 +1991,10 @@ or not?]</p>
 <h2>Column</h2>
 <div id="table" class="section level3">
 <h3>Table</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+<div class="knitr-options" data-fig-width="576" data-fig-height="2400">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig3 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig3 style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="row-5" class="section level2">
@@ -2045,13 +2039,15 @@ output:
       bootswatch: journal
     runtime: shiny
     knit: rmarkdown::render
+    
 ---
 
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE)
+                      warning = FALSE,
+                      fig.align="center")
 require(DT)
 require(readr)
 require(tidyverse)
@@ -2072,6 +2068,8 @@ require(gganimate)
 require(jpeg)
 require(ggpubr)
 require(grid)
+#devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
+
 
 aq &lt;- read_csv("data/AQ_SubScales.csv")
 exp &lt;- read_csv("data/datadryad_clear98_aq.csv")
@@ -2141,7 +2139,7 @@ g
 
 Row
 ---------------------------------------------------------------
-&lt;p style="text-align: center;"&gt;**References**&lt;/p&gt;
+\begin{center}**References**\end{center}
 &lt;br&gt;
 Srivastava, N., Newn, J., &amp; Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
@@ -2261,7 +2259,7 @@ Column
 
 ### Table
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=25}
 # OFF
 exp.f &lt;- exp[c(13, 18)]
 exp.f &lt;- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)

@@ -10,13 +10,15 @@ output:
       bootswatch: journal
     runtime: shiny
     knit: rmarkdown::render
+    
 ---
 
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE)
+                      warning = FALSE,
+                      fig.align="center")
 require(DT)
 require(readr)
 require(tidyverse)
@@ -37,6 +39,8 @@ require(gganimate)
 require(jpeg)
 require(ggpubr)
 require(grid)
+#devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
+
 
 aq <- read_csv("data/AQ_SubScales.csv")
 exp <- read_csv("data/datadryad_clear98_aq.csv")
@@ -106,7 +110,7 @@ g
 
 Row
 ---------------------------------------------------------------
-<p style="text-align: center;">**References**</p>
+\begin{center}**References**\end{center}
 <br>
 Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
