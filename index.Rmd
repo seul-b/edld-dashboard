@@ -183,7 +183,7 @@ animate(p.C)
 
 Row
 ---------------------------------------------------------------
-<p style="text-align: center;">**References**</p>
+<p style="text-align: center;">References</p>
 <br>
 Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
 <br>
