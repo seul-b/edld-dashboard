@@ -67,6 +67,7 @@ The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) 
 
 The second dataset ("Face Viewing Experiment") is from a published study titled "A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants". The eye movements were recorded using Eye Link 1000 Plus and analyzed with SR Research’s Eyelink software. Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
 
+Each tab includes one or one set of visualizations from eye tracking research data described above with short descriptions. 
 
 
 Browsing on Screen 1
