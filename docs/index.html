@@ -40,6 +40,13 @@ window.FlexDashboardComponents = [];
 <script src="site_libs/featherlight-1.3.5/featherlight.min.js"></script>
 <link href="site_libs/prism-1.4.1/prism.css" rel="stylesheet" />
 <script src="site_libs/prism-1.4.1/prism.js"></script>
+<script src="site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <style type="text/css">
 /*
   CSS for flexdashboard.js' use of Sly(). The sizing/position of this CSS needs to be
@@ -167,7 +174,6 @@ window.FlexDashboardComponents = [];
 
 <img class="mobile-figure" data-mobile-figure-id=fig1 src="index_files/figure-html/unnamed-chunk-1-1.mb.png" />
 <img class="mobile-figure" data-mobile-figure-id=fig2 src="index_files/figure-html/unnamed-chunk-5-1.mb.png" />
-<img class="mobile-figure" data-mobile-figure-id=fig3 src="index_files/figure-html/unnamed-chunk-6-1.mb.png" />
 <script type="text/javascript">
 
 
@@ -1926,24 +1932,24 @@ etc.). <br></p>
 <h2 class="tabset">Row</h2>
 <div id="set-a" class="section level3">
 <h3>Set A</h3>
-<div class="knitr-options" data-fig-width="1152" data-fig-height="960">
+<div class="knitr-options" data-fig-width="960" data-fig-height="768">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" width="1152" data-figure-id=fig2 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.gif" width="960" data-figure-id=fig2 /></p>
 </div>
 <div id="set-b" class="section level3">
 <h3>Set B</h3>
-<div class="knitr-options" data-fig-width="1152" data-fig-height="960">
+<div class="knitr-options" data-fig-width="960" data-fig-height="768">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.gif" width="1152" data-figure-id=fig2 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.gif" width="960" data-figure-id=fig2 /></p>
 </div>
 <div id="set-c" class="section level3">
 <h3>Set C</h3>
-<div class="knitr-options" data-fig-width="1152" data-fig-height="960">
+<div class="knitr-options" data-fig-width="960" data-fig-height="768">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" width="1152" data-figure-id=fig2 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.gif" width="960" data-figure-id=fig2 /></p>
 </div>
 </div>
 <div id="row-3" class="section level2">
@@ -1956,36 +1962,55 @@ href="https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.
 class="uri">https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx</a>
 <br> Statista.com. (n.d.). Daily Infographics: Global stories vividly
 visualized. <a href="https://www.statista.com/chartoftheday/"
-class="uri">https://www.statista.com/chartoftheday/</a></p>
+class="uri">https://www.statista.com/chartoftheday/</a> Srivastava, N.,
+Newn, J., &amp; Velloso, E. (2018). Combining Low and Mid-Level Gaze
+Features for Desktop Activity Recognition. Proceedings of the ACM on
+Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4),
+189.</p>
 </div>
 </div>
 <div id="face-viewing-experiment-1" class="section level1">
 <h1>Face Viewing Experiment 1</h1>
-<div id="row-4" class="section level2">
-<h2>Row</h2>
-<div id="under-construction" class="section level3">
-<h3>UNDER CONSTRUCTION</h3>
-</div>
-</div>
-</div>
-<div id="face-viewing-experiment-2" class="section level1">
-<h1>Face Viewing Experiment 2</h1>
 <blockquote>
-<p>This plot shows how each scale of AQ is related to the time spent
-areas of interest (i.e., face in this experiment) while an interlocutor
-was talking. <br></p>
+<p>This plot shows how each subscale of Autism-Spectrum Quotient is
+related to the time spent areas of interest (i.e., face in this
+experiment) while an interlocutor was talking. <br></p>
 </blockquote>
 <div id="column" class="section level2">
 <h2>Column</h2>
 <div id="time-gazed-on-or-off-face" class="section level3">
 <h3>Time Gazed On or Off Face</h3>
-<div class="knitr-options" data-fig-width="576" data-fig-height="768">
+<div class="knitr-options" data-fig-width="576" data-fig-height="864">
 
 </div>
-<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="576" data-figure-id=fig3 /></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="576" data-figure-id=fig2 /></p>
 </div>
 </div>
+<div id="row-4" class="section level2">
+<h2>Row</h2>
+<p><strong>References</strong> <br> Wegner-Clemens, Kira, Rennig,
+Johannes, &amp; Beauchamp, Michael S. (2020). A relationship between
+Autism-Spectrum Quotient and face viewing behavior in 98 participants
+[Data set]. <a href="https://doi.org/10.5061/dryad.zpc866t5c"
+class="uri">https://doi.org/10.5061/dryad.zpc866t5c</a></p>
+</div>
+</div>
+<div id="face-viewing-experiment-2" class="section level1">
+<h1>Face Viewing Experiment 2</h1>
+<blockquote>
+<p>This plot indicates the correlations between fixation duration (i.e.,
+participants’ eyes stopped scanning the object and hold the foveal area
+in one place) and the total and each subscale of Autism-Spectrum
+Quotient. <br></p>
+</blockquote>
 <div id="row-5" class="section level2">
+<h2>Row</h2>
+<div id="correlation-between-fixation-duration-and-aq-scores"
+class="section level3">
+<h3>Correlation between fixation duration and AQ scores</h3>
+</div>
+</div>
+<div id="row-6" class="section level2">
 <h2>Row</h2>
 <p><strong>References</strong> <br> Wegner-Clemens, Kira, Rennig,
 Johannes, &amp; Beauchamp, Michael S. (2020). A relationship between
@@ -2052,6 +2077,8 @@ require(gganimate)
 require(jpeg)
 require(ggpubr)
 require(grid)
+require(plotly)
+require(ggcorrplot)
 #devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
 
 
@@ -2132,7 +2159,7 @@ Row {.tabset}
 ---------------------------------------------------------------
 ### Set A 
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.A &lt;- png::readPNG("data/web.A.png")
 
 df.A &lt;- df[df$set == 'A', ] 
@@ -2150,7 +2177,7 @@ animate(p.A)
 
 ### Set B
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.B &lt;- png::readPNG("data/web.B.png")
 
 df.B &lt;- df[df$set == 'B', ] 
@@ -2168,7 +2195,7 @@ animate(p.B)
 
 ### Set C
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.C &lt;- png::readPNG("data/web.C.png")
 
 df.C &lt;- df[df$set == 'C', ] 
@@ -2194,37 +2221,13 @@ Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Or
 Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx
 &lt;br&gt;
 Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
+Srivastava, N., Newn, J., &amp; Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
 
-Face Viewing Experiment 1 
-=============
-Row
----------------------------------------------------------------
-### UNDER CONSTRUCTION
-
-```{r, eval=TRUE, include=FALSE}
-
-aq &lt;- read_csv("data/AQ_SubScales.csv")
-exp &lt;- read_csv("data/datadryad_clear98_aq.csv")
-
-image &lt;- readJPEG("data/image.jpg")
-
-exp.1 &lt;- exp[exp$Sub == '1', ] 
-
-ggplot(exp.1, aes(x = x, y = y, fill = PC_Eyes)) +
-  ggpubr::background_image(image) +
-  geom_point(pch = 21, alpha = 0.8) +
-  scale_fill_gradientn(colours = rainbow(5)) 
-
-
-```
-
-
-
-Face Viewing Experiment 2
+Face Viewing Experiment 1
 =============
 
-&gt; This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. &lt;br&gt;
+&gt; This plot shows how each subscale of Autism-Spectrum Quotient is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. &lt;br&gt;
 
 
 Column 
@@ -2232,7 +2235,7 @@ Column
 
 ### Time Gazed On or Off Face
 
-```{r, echo=FALSE, fig.height=8}
+```{r, echo=FALSE, fig.height=9}
 # OFF
 exp.f &lt;- exp[c(13, 18)]
 exp.f &lt;- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
@@ -2241,8 +2244,8 @@ exp.f &lt;- exp.f %&gt;%
          'Off' = 'x')
 exp.f &lt;- unique(exp.f)
 
-aq &lt;- rename(aq, Code = code)
-exp.f &lt;- left_join(exp.f, aq, by="Code")
+aq.r &lt;- rename(aq, Code = code)
+exp.f &lt;- left_join(exp.f, aq.r, by="Code")
 exp.f &lt;- exp.f %&gt;% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -2264,7 +2267,7 @@ exp.e &lt;- exp.e %&gt;%
          'Eyes' = 'x')
 exp.e &lt;- unique(exp.e)
 
-exp.e &lt;- left_join(exp.e, aq, by="Code")
+exp.e &lt;- left_join(exp.e, aq.r, by="Code")
 exp.e &lt;- exp.e %&gt;% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -2286,7 +2289,7 @@ exp.m &lt;- exp.m %&gt;%
          'Mouth' = 'x')
 exp.m &lt;- unique(exp.m)
 
-exp.m &lt;-left_join(exp.m, aq, by=c("Code"))
+exp.m &lt;-left_join(exp.m, aq.r, by=c("Code"))
 exp.m &lt;- exp.m %&gt;% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -2309,6 +2312,46 @@ plots &lt;- ggarrange(plot.e, plot.m, plot.f,
 annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
+
+Row
+---------------------------------------------------------------
+**References**
+&lt;br&gt;
+Wegner-Clemens, Kira, Rennig, Johannes, &amp; Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
+
+
+
+Face Viewing Experiment 2 
+=============
+&gt; This plot indicates the correlations between fixation duration (i.e., participants' eyes stopped scanning the object and hold the foveal area in one place) and the total and each subscale of Autism-Spectrum Quotient. &lt;br&gt;
+
+
+Row
+---------------------------------------------------------------
+### Correlation between fixation duration and AQ scores
+
+```{r, eval=TRUE, include=FALSE}
+agg &lt;- aggregate(exp$FixDur, by=list(exp$Code), FUN=mean)
+agg &lt;- agg %&gt;% 
+  rename('code' = 'Group.1',
+         'fixation' = 'x')
+xx &lt;- left_join(agg, aq, by=c("code"))
+xx &lt;- xx[,-1]
+
+cor &lt;- round(xx, 3)
+cor_mat &lt;- cor_pmat(cor)
+
+cor_plot &lt;- ggcorrplot(
+  cor_mat, hc.order=TRUE, type="lower",
+  outline.col="white",
+  colors = c("#6D9EC1", "white", "#E46726"),
+  p.mat=cor_mat
+)
+
+ggplotly(cor_plot)
+```
+
+
 
 Row
 ---------------------------------------------------------------

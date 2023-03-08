@@ -38,6 +38,8 @@ require(gganimate)
 require(jpeg)
 require(ggpubr)
 require(grid)
+require(plotly)
+require(ggcorrplot)
 #devtools::install_github("tmalsburg/scanpath/scanpath", dependencies=TRUE)
 
 
@@ -118,7 +120,7 @@ Row {.tabset}
 ---------------------------------------------------------------
 ### Set A 
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.A <- png::readPNG("data/web.A.png")
 
 df.A <- df[df$set == 'A', ] 
@@ -136,7 +138,7 @@ animate(p.A)
 
 ### Set B
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.B <- png::readPNG("data/web.B.png")
 
 df.B <- df[df$set == 'B', ] 
@@ -154,7 +156,7 @@ animate(p.B)
 
 ### Set C
 
-``` {r, echo=FALSE, fig.height=10, fig.width=12}
+``` {r, echo=FALSE, fig.height=8, fig.width=10}
 img.C <- png::readPNG("data/web.C.png")
 
 df.C <- df[df$set == 'C', ] 
@@ -180,37 +182,13 @@ Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Or
 Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx
 <br>
 Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
+Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
 
-Face Viewing Experiment 1 
-=============
-Row
----------------------------------------------------------------
-### UNDER CONSTRUCTION
-
-```{r, eval=TRUE, include=FALSE}
-
-aq <- read_csv("data/AQ_SubScales.csv")
-exp <- read_csv("data/datadryad_clear98_aq.csv")
-
-image <- readJPEG("data/image.jpg")
-
-exp.1 <- exp[exp$Sub == '1', ] 
-
-ggplot(exp.1, aes(x = x, y = y, fill = PC_Eyes)) +
-  ggpubr::background_image(image) +
-  geom_point(pch = 21, alpha = 0.8) +
-  scale_fill_gradientn(colours = rainbow(5)) 
-
-
-```
-
-
-
-Face Viewing Experiment 2
+Face Viewing Experiment 1
 =============
 
-> This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
+> This plot shows how each subscale of Autism-Spectrum Quotient is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
 
 
 Column 
@@ -218,7 +196,7 @@ Column
 
 ### Time Gazed On or Off Face
 
-```{r, echo=FALSE, fig.height=8}
+```{r, echo=FALSE, fig.height=9}
 # OFF
 exp.f <- exp[c(13, 18)]
 exp.f <- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
@@ -227,8 +205,8 @@ exp.f <- exp.f %>%
          'Off' = 'x')
 exp.f <- unique(exp.f)
 
-aq <- rename(aq, Code = code)
-exp.f <- left_join(exp.f, aq, by="Code")
+aq.r <- rename(aq, Code = code)
+exp.f <- left_join(exp.f, aq.r, by="Code")
 exp.f <- exp.f %>% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -250,7 +228,7 @@ exp.e <- exp.e %>%
          'Eyes' = 'x')
 exp.e <- unique(exp.e)
 
-exp.e <- left_join(exp.e, aq, by="Code")
+exp.e <- left_join(exp.e, aq.r, by="Code")
 exp.e <- exp.e %>% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -272,7 +250,7 @@ exp.m <- exp.m %>%
          'Mouth' = 'x')
 exp.m <- unique(exp.m)
 
-exp.m <-left_join(exp.m, aq, by=c("Code"))
+exp.m <-left_join(exp.m, aq.r, by=c("Code"))
 exp.m <- exp.m %>% 
   pivot_longer(c(4:8),
                names_to = "Subscale",
@@ -295,6 +273,46 @@ plots <- ggarrange(plot.e, plot.m, plot.f,
 annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
+
+Row
+---------------------------------------------------------------
+**References**
+<br>
+Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
+
+
+
+Face Viewing Experiment 2 
+=============
+> This plot indicates the correlations between fixation duration (i.e., participants' eyes stopped scanning the object and hold the foveal area in one place) and the total and each subscale of Autism-Spectrum Quotient. <br>
+
+
+Row
+---------------------------------------------------------------
+### Correlation between fixation duration and AQ scores
+
+```{r, eval=TRUE, include=FALSE}
+agg <- aggregate(exp$FixDur, by=list(exp$Code), FUN=mean)
+agg <- agg %>% 
+  rename('code' = 'Group.1',
+         'fixation' = 'x')
+xx <- left_join(agg, aq, by=c("code"))
+xx <- xx[,-1]
+
+cor <- round(xx, 3)
+cor_mat <- cor_pmat(cor)
+
+cor_plot <- ggcorrplot(
+  cor_mat, hc.order=TRUE, type="lower",
+  outline.col="white",
+  colors = c("#6D9EC1", "white", "#E46726"),
+  p.mat=cor_mat
+)
+
+ggplotly(cor_plot)
+```
+
+
 
 Row
 ---------------------------------------------------------------
