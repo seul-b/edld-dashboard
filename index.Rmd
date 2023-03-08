@@ -110,7 +110,7 @@ g
 
 Row
 ---------------------------------------------------------------
-\begin{center}**References**\end{center}
+<h3 style="text-align: center;">**References**</h3>
 <br>
 Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
@@ -183,7 +183,7 @@ animate(p.C)
 
 Row
 ---------------------------------------------------------------
-<p style="text-align: center;">References</p>
+<h3 style="text-align: center;">**References**</h3>
 <br>
 Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
 <br>
