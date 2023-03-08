@@ -17,8 +17,7 @@ output:
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
-                      warning = FALSE,
-                      fig.align="center")
+                      warning = FALSE)
 require(DT)
 require(readr)
 require(tidyverse)
@@ -70,12 +69,10 @@ The second dataset ("Face Viewing Experiment") is from a published study titled 
 
 
 
-
-
 Browsing on Screen 1
 =============
 
-> The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing.</code></pre>
+> The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing.
 
 
 Row
@@ -214,8 +211,6 @@ Face Viewing Experiment 2
 
 > This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
 
-[Consideration 1: include the total score or not? <br>
-Consideration 2: differentiate and include plots for the time spent on eyes and mouth or not?]
 
 Column 
 ---------------------------------------------------------------
