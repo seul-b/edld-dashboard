@@ -58,15 +58,15 @@ Home
 
 ### Hello!
 
-Welcome to my final project of EDLD 652: Data Visualization class. <br>
+    Welcome to my final project of EDLD 652: Data Visualization class. <br>
 
-My name is Seulbi Lee, and I'm a second year PhD student in Special Education program. One of my projects that I'm planning is related to eye tracking research to better understand struggling readers' comprehension, so I wanted to include two eye tracking datasets for this project. <br>
-
-
-The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) of 24 participants while performing online activities during five minutes. The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. In my project, only Browsing activity is included. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities <br>
+    My name is Seulbi Lee, and I'm a second year PhD student in Special Education program. One of my projects that I'm planning is related to eye tracking research to better understand struggling readers' comprehension, so I wanted to include two eye tracking datasets for this project. <br>
 
 
-The second dataset ("Face Viewing Experiment") is from a published study titled "A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants". The eye movements were recorded using Eye Link 1000 Plus and analyzed with SR Research’s Eyelink software. Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
+    The first dataset ("Browsing on Screen") consists of raw gaze coordinates (x-y) of 24 participants while performing online activities during five minutes. The eye movements were recorded using Tobii X2-30 eye tracker and Tobii Pro Studio software. In my project, only Browsing activity is included. Original data can be found at https://www.kaggle.com/datasets/namratasri01/eye-movement-data-set-for-desktop-activities <br>
+
+
+    The second dataset ("Face Viewing Experiment") is from a published study titled "A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants". The eye movements were recorded using Eye Link 1000 Plus and analyzed with SR Research’s Eyelink software. Original data and article can be found at https://doi.org/10.5061/dryad.zpc866t5c
 
 
 ### These things will be revised for the final product: 
@@ -83,7 +83,7 @@ If there are additional points that I would need to revise, please let me know. 
 Browsing on Screen 1
 =============
 
-The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing. 
+> The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing.</code></pre>
 
 
 Row
@@ -110,7 +110,7 @@ g
 
 Row
 ---------------------------------------------------------------
-<h3 style="text-align: center;">**References**</h3>
+**References**
 <br>
 Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 
@@ -120,7 +120,7 @@ Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze
 Browsing on Screen 2
 =============
 
-The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). <br>
+> The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). <br>
 
 
 
@@ -183,7 +183,7 @@ animate(p.C)
 
 Row
 ---------------------------------------------------------------
-<h3 style="text-align: center;">**References**</h3>
+**References**
 <br>
 Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
 <br>
@@ -220,7 +220,7 @@ ggplot(exp.1, aes(x = x, y = y, fill = PC_Eyes)) +
 Face Viewing Experiment 2
 =============
 
-This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
+> This plot shows how each scale of AQ is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
 
 [Consideration 1: include the total score or not? <br>
 Consideration 2: differentiate and include plots for the time spent on eyes and mouth or not?]
@@ -230,7 +230,7 @@ Column
 
 ### Time Gazed On or Off Face
 
-```{r, echo=FALSE, fig.height=18}
+```{r, echo=FALSE, fig.height=15}
 # OFF
 exp.f <- exp[c(13, 18)]
 exp.f <- aggregate(exp.f$PC_Off, list(exp.f$Code), FUN=mean)
@@ -310,6 +310,6 @@ annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 Row
 ---------------------------------------------------------------
-<p style="text-align: center;">**References**</p>
+**References**
 <br>
 Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
