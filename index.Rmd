@@ -217,6 +217,7 @@ plot.f <- ggplot(exp.f, aes(Off, score, colour = Subscale)) +
   ylab('AQ Score') +
   geom_smooth(method=lm, se = FALSE)+
   scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  xlim(0,1)+
   theme(axis.title.y = element_blank())
 
 # EYES
@@ -239,6 +240,7 @@ plot.e <- ggplot(exp.e, aes(Eyes, score, colour = Subscale)) +
   ylab('AQ Score') +
   geom_smooth(method=lm, se = FALSE) +
   scale_y_continuous(breaks=c(0,2,4,6,8,10)) +
+  xlim(0,1)+
   theme(axis.title.y = element_blank())
 
 # MOUTH
@@ -261,12 +263,14 @@ plot.m <- ggplot(exp.m, aes(Mouth, score, colour = Subscale)) +
   ylab('AQ Score') +
   geom_smooth(method=lm, se = FALSE)+
   scale_y_continuous(breaks=c(0,2,4,6,8,10))  +
+  xlim(0,1)+
   theme(axis.title.y = element_blank())
 
 
 plots <- ggarrange(plot.e, plot.m, plot.f,
           ncol=1, common.legend = TRUE, legend="right")  +
-    scale_y_continuous(breaks=c(0,2,4,6,8,10)) 
+    scale_y_continuous(breaks=c(0,2,4,6,8,10))+
+    xlim(0,1)
   
 
 annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
@@ -297,18 +301,23 @@ agg <- agg %>%
 xx <- left_join(agg, aq, by = c("code"))
 xx <- xx[, -1]
 
-cor <- round(xx, 3)
-cor_mat <- cor_pmat(cor)
+cor_mat <- cor_pmat(xx)
 
-cor_plot <- ggcorrplot(
+p <- ggcorrplot(
   cor_mat,
   hc.order = TRUE,
   type = "lower",
-  colors = c("darkblue", "blue", "skyblue"),
-  p.mat = cor_mat
+  outline.color = "gray",
+  lab=TRUE,
+  lab_size = 5
 )
 
-plotly::ggplotly(cor_plot)
+plot <- 
+  p + 
+  scale_fill_gradient2(limit = c(0,1), 
+                       low = "#6D9EC1", high =  "#E46726", mid = "white", midpoint = 0.05)
+
+plotly::ggplotly(plot)
 
 ```
 
