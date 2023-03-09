@@ -8,7 +8,6 @@ output:
     vertical_layout: scroll
     theme:
       bootswatch: journal
-    runtime: shiny
     knit: rmarkdown::render
     
 ---
@@ -286,30 +285,31 @@ Face Viewing Experiment 2
 =============
 > This plot indicates the correlations between fixation duration (i.e., participants' eyes stopped scanning the object and hold the foveal area in one place) and the total and each subscale of Autism-Spectrum Quotient. <br>
 
-
 Row
 ---------------------------------------------------------------
 ### Correlation between fixation duration and AQ scores
 
-```{r, eval=TRUE, include=FALSE}
-agg <- aggregate(exp$FixDur, by=list(exp$Code), FUN=mean)
-agg <- agg %>% 
+```{r, echo=FALSE, fig.height=8, fig.width=10}
+agg <- aggregate(exp$FixDur, by = list(exp$Code), FUN = mean)
+agg <- agg %>%
   rename('code' = 'Group.1',
          'fixation' = 'x')
-xx <- left_join(agg, aq, by=c("code"))
-xx <- xx[,-1]
+xx <- left_join(agg, aq, by = c("code"))
+xx <- xx[, -1]
 
 cor <- round(xx, 3)
 cor_mat <- cor_pmat(cor)
 
 cor_plot <- ggcorrplot(
-  cor_mat, hc.order=TRUE, type="lower",
-  outline.col="white",
-  colors = c("#6D9EC1", "white", "#E46726"),
-  p.mat=cor_mat
+  cor_mat,
+  hc.order = TRUE,
+  type = "lower",
+  colors = c("darkblue", "blue", "skyblue"),
+  p.mat = cor_mat
 )
 
-ggplotly(cor_plot)
+plotly::ggplotly(cor_plot)
+
 ```
 
 
