@@ -74,7 +74,7 @@ Each tab includes one or one set of visualizations from eye tracking research da
 Browsing on Screen 1
 =============
 
-> The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing.
+> The eye gaze path plots show us each participant's eye movement while browsing on screen for five minutes. Different colors indicate different sets (screens) they were browsing. With this plot, we can see only where participants looked at, without any timepoints given.
 
 
 Row
@@ -99,19 +99,12 @@ g <- p + ggplot2::theme(legend.position = "none")
 g
 ```
 
-Row
----------------------------------------------------------------
-**References**
-<br>
-Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
-
-
 
 
 Browsing on Screen 2
 =============
 
-> The screenshots of websites are not what they were looking; however, I added each screenshot to help you understand what regions on the webpage each participant was gazing (e.g., title, content, sidebar, etc.). <br>
+> The three tabs below are divided based on different websites they looked while browsing. However, I included example websites because they did not specify the website participants browsed on. These dynamic plot also reflect how long their eyes were fixated at one point as well as how they moved their eyes. <br>
 
 
 
@@ -130,7 +123,10 @@ p.A <- ggplot(df.A, aes(x = x, y = y, fill = duration)) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
   scale_fill_gradientn(colours = rainbow(5)) +
-  transition_reveal(y)
+  transition_reveal(y) +
+  theme(axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank())
 
 animate(p.A)
 ```
@@ -144,11 +140,14 @@ df.B <- df[df$set == 'B', ]
 df.B <- filter(df.B, timestamp>0)
 
 p.B <- ggplot(df.B, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.A) +
+  ggpubr::background_image(img.B) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
   scale_fill_gradientn(colours = rainbow(5)) +
-  transition_reveal(y)
+  transition_reveal(y) +
+  theme(axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank())
 
 animate(p.B)
 ```
@@ -162,32 +161,24 @@ df.C <- df[df$set == 'C', ]
 df.C <- filter(df.C, timestamp>0)
 
 p.C <- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
-  ggpubr::background_image(img.A) +
+  ggpubr::background_image(img.C) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
   scale_fill_gradientn(colours = rainbow(5)) +
-  transition_reveal(y)
+  transition_reveal(y) +
+  theme(axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text = element_blank())
+
 
 animate(p.C)
 ```
 
 
-Row
----------------------------------------------------------------
-**References**
-<br>
-Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
-<br>
-Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx
-<br>
-Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
-Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
-
-
 Face Viewing Experiment 1
 =============
 
-> This plot shows how each subscale of Autism-Spectrum Quotient is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. <br>
+> This plot shows how each subscale of Autism-Spectrum Quotient is related to the time spent areas of interest (i.e., face in this experiment) while an interlocutor was talking. In each plot, we can observe the subscales of attention switching and attention to detail were measured higher than other subscales, while the changes in level were weak. The original study also used this data to examine if autistic traits in neurotypical adults explain individual differences in face viewing behavior and found a positive correlation between AQ score and percent of time fixating the lower half of the face, suggesting autistic traits can be one of the factors contributing to individual differences in face viewing behavior (Wegner-Clemens et al., 2020). <br>
 
 
 Column 
@@ -277,17 +268,11 @@ annotate_figure(plots, left = text_grob("AQ Score", rot = 90, vjust = 1))
 
 ```
 
-Row
----------------------------------------------------------------
-**References**
-<br>
-Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
-
 
 
 Face Viewing Experiment 2 
 =============
-> This plot indicates the correlations between fixation duration (i.e., participants' eyes stopped scanning the object and hold the foveal area in one place) and the total and each subscale of Autism-Spectrum Quotient. <br>
+> This plot indicates the correlations between fixation duration (i.e., participants' eyes stopped scanning the object and hold the foveal area in one place) and the total and each subscale of Autism-Spectrum Quotient. There were high correlations between attention to detail and imagination, and atention to deetail and fixation. While most of the subscale showed no to little correlation, social skill subscale showed moderate correlation with attention to detail. <br>
 
 Row
 ---------------------------------------------------------------
@@ -323,8 +308,21 @@ plotly::ggplotly(plot)
 
 
 
+
+References
+=============
+
 Row
 ---------------------------------------------------------------
-**References**
+</center>**References**</center>
+
+<br>
+Oregon Ducks. (2022, October 25). In Wikipedia. https://en.wikipedia.org/wiki/Oregon_Ducks
+<br>
+Oregon.gov. (n.d.). Equity and Student Success. https://www.oregon.gov/highered/policy-collaboration/Pages/equity-success.aspx
+<br>
+Statista.com. (n.d.). Daily Infographics: Global stories vividly visualized. https://www.statista.com/chartoftheday/
+<br>
+Srivastava, N., Newn, J., & Velloso, E. (2018). Combining Low and Mid-Level Gaze Features for Desktop Activity Recognition. Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 2(4), 189.
 <br>
 Wegner-Clemens, Kira, Rennig, Johannes, & Beauchamp, Michael S. (2020). A relationship between Autism-Spectrum Quotient and face viewing behavior in 98 participants [Data set]. https://doi.org/10.5061/dryad.zpc866t5c
