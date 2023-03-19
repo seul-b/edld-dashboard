@@ -118,7 +118,7 @@ img.A <- png::readPNG("data/web.A.png")
 df.A <- df[df$set == 'A', ] 
 df.A <- filter(df.A, timestamp>0)
 
-p.A <- ggplot(df.A, aes(x = x, y = y, fill = duration)) +
+p.A <- ggplot(df.A, aes(x = x, y = 1080 - y, fill = duration)) +
   ggpubr::background_image(img.A) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
@@ -139,7 +139,7 @@ img.B <- png::readPNG("data/web.B.png")
 df.B <- df[df$set == 'B', ] 
 df.B <- filter(df.B, timestamp>0)
 
-p.B <- ggplot(df.B, aes(x = x, y = y, fill = duration)) +
+p.B <- ggplot(df.B, aes(x = x, y = 1080 - y, fill = duration)) +
   ggpubr::background_image(img.B) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
@@ -160,7 +160,7 @@ img.C <- png::readPNG("data/web.C.png")
 df.C <- df[df$set == 'C', ] 
 df.C <- filter(df.C, timestamp>0)
 
-p.C <- ggplot(df.C, aes(x = x, y = y, fill = duration)) +
+p.C <- ggplot(df.C, aes(x = x, y = 1080 - y, fill = duration)) +
   ggpubr::background_image(img.C) +
   geom_point(pch = 21, alpha = 0.8) +
   facet_wrap( ~ participant) +
